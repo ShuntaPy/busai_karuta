@@ -1,0 +1,93 @@
+#disp_count {
+    background-color: #093;
+    color: #FFF;
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 20px;
+    display: table-cell;
+    position: absolute;
+    left: 300px;
+    top: 10px;
+}
+
+#btn_count_up {
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    left: 375px;
+    top: 10px;
+}
+
+#btn_reset {
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    left: 570px;
+    top: 10px;
+}
+
+#btn_count_up:hover { background-color:#F30 }
+#btn_reset:hover { background-color:#F30 }
+
+#disp_count2 {
+    background-color: #093;
+    color: #FFF;
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 20px;
+    display: table-cell;
+    position: absolute;
+    left: 300px;
+    top: 100px;
+}
+
+#btn_count_up2 {
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    left: 375px;
+    top: 100px;
+}
+
+#btn_reset2 {
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    left: 570px;
+    top: 100px;
+}
+
+#btn_count_up2:hover { background-color:#F30 }
+#btn_reset2:hover { background-color:#F30 }
+
+#inputColor{
+   padding: 30px;
+   position: absolute;
+   left: 45px;
+   top: 620px;
+}
+
+#buttonSave{
+   font-size: 30px;
+   position: absolute;
+   left: 125px;
+   top: 620px;
+}
+
+#buttonReset{
+   font-size: 30px;
+   position: absolute;
+   left: 260px;
+   top: 620px;
+}
+
+#buttonback{
+   font-size: 30px;
+   position: absolute;
+   left: 455px;
+   top: 620px;
+}
