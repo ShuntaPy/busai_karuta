@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <script src="components/loader.js"></script>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="css/style.css">>
+  <script>
+    // 読み込みが終わってから初期化 
+    window.addEventListener("load", init);
+
+    function init() {
+
+      // ステージを作成
+      var stage = new createjs.Stage("myCanvas");
+
+
+      // ページが読み込まれたら実行
+       window.onload = function() {
+           // オブジェクトと変数の準備（取った枚数）
+           var count_disp = document.getElementById("disp_count");  
+           var count_up_btn = document.getElementById("btn_count_up");
+           var reset_btn = document.getElementById("btn_reset");
+           var count_value = 0;
+
+           // カウントアップボタンクリック処理（取った枚数）
+           count_up_btn.onclick = function (){
+           count_value += 1;
+           count_disp.innerHTML = count_value;
+           };
+
+            // カウントアップボタンのマウスダウン処理（取った枚数）
+            count_up_btn.onmousedown = function() {
+            count_up_btn.style.backgroundColor = "#00FF00";
+            }
+
+            // カウントアップボタンのマウスアップ処理（取った枚数）
+            count_up_btn.onmouseup = function() {
+            count_up_btn.style.backgroundColor = "";
+            }
+
+            // オブジェクトと変数の準備（お手付き）
+            var count_disp2 = document.getElementById("disp_count2");  
+            var count_up_btn2 = document.getElementById("btn_count_up2");
+            var reset_btn2 = document.getElementById("btn_reset2");
+            var count_value2 = 0;
+            
+            // カウントアップボタンクリック処理（お手付き）
+            count_up_btn2.onclick = function (){
+            count_value2 += 1;
+            count_disp2.innerHTML = count_value2;
+            };
+
+            // カウントアップボタンのマウスダウン処理（お手付き）
+            count_up_btn2.onmousedown = function() {
+            count_up_btn2.style.backgroundColor = "#00FF00";
+            }
+            
+            // カウントアップボタンのマウスアップ処理（お手付き）
+            count_up_btn2.onmouseup = function() {
+            count_up_btn2.style.backgroundColor = "";
+            }
+
+            // リセットボタンのクリック処理（取った枚数）
+            reset_btn.onclick = function (){
+                count_value = 0; count_disp.innerHTML = count_value;
+            }
+            
+            // リセットボタンのマウスダウン処理（取った枚数）
+            reset_btn.onmousedown = function() {
+            reset_btn.style.backgroundColor = "#00FF00";
+            }
+            
+            // リセットボタンのマウスアップ処理（取った枚数）
+            reset_btn.onmouseup = function() {
+            reset_btn.style.backgroundColor = "";
+            }
+            
+            // リセットボタンのクリック処理（お手付き）
+            reset_btn2.onclick = function (){
+            count_value2 = 0; count_disp2.innerHTML = count_value2;
+            }
+            
+            // リセットボタンのマウスダウン処理（お手付き）
+            reset_btn2.onmousedown = function() {
+            reset_btn2.style.backgroundColor = "#00FF00";
+            }
+            
+            // リセットボタンのマウスアップ処理（お手付き）
+            reset_btn2.onmouseup = function() {
+            reset_btn2.style.backgroundColor = "";
+            }
+       };
+
+      // Stageオブジェクトを作成。表示リストのルートになります。
+      
+      var stage = new createjs.Stage("myCanvas");
+
+      var btnW = 100; // ボタンの横幅
+      var btnH = 50; // ボタンの高さ
+
+      // ボタン要素をグループ化
+      var button = new createjs.Container();
+      button.x = 1;
+      button.y = 1;
+      stage.addChild(button);
+
+      // 座布団を作成
+      var bg = new createjs.Shape();
+      bg.graphics
+              .setStrokeStyle(1)
+              .beginStroke("#563d7c")
+              .beginFill("white")
+              .drawRoundRect(0, 0, btnW, btnH, 4);
+      button.addChild(bg);
+
+      // ラベルを作成
+      var label = new createjs.Text("戻る", "24px sans-serif", "#563d7c");
+      label.x = btnW / 2;
+      label.y = btnH / 2;
+      label.textAlign = "center";
+      label.textBaseline = "middle";
+      button.addChild(label);
+
+      // イベントを登録
+      button.addEventListener("click", handleClick);
+      function handleClick(event) {
+          location.href = 'menu.html';
+      }
+
+      // 絵札の横幅
+      var PHOTO_WIDTH = 148;
+      // 絵札の枚数
+      var PHOTO_NUM = 10;
+
+      // 親子構造を2層で用意する
+      var wrap = new createjs.Container();
+      wrap.x = 115;
+      wrap.y = 130; // 座標調整のため
+      stage.addChild(wrap);
+
+      // 絵札を10枚配置
+      var container = new createjs.Container();
+      wrap.addChild(container);
+      for (var i = 0; i < PHOTO_NUM; i++) {
+        // 絵札を読み込む
+        var url = "efuda_" + i + ".jpg";
+        var photo = new createjs.Bitmap(url);
+        // 配置座標を調整
+        photo.x = PHOTO_WIDTH * i;
+        // 画面に配置
+        container.addChild(photo);
+      }
+
+      // マスク用のシェイプを作成する
+      var shapeMask = new createjs.Shape();
+      shapeMask.graphics
+              .beginFill("gold") // 適当な色で塗る
+              .drawRect(0, 0, PHOTO_WIDTH, 427); // 写真のサイズに設定
+      // マスクを適用する
+      container.mask = shapeMask;
+
+      var btnPrev = createButton("◀");
+      btnPrev.x = 45;
+      btnPrev.y = 200;
+      stage.addChild(btnPrev);
+
+      var btnNext = createButton("▶");
+      btnNext.x = 285;
+      btnNext.y = 200;
+      stage.addChild(btnNext);
+
+      // スライドショーのページナンバーを管理する変数を用意
+      var pageNumber = 0;
+
+      // ボタンをクリックしたときの処理
+      btnPrev.addEventListener("click", handlePrevClick);
+      function handlePrevClick(event) {
+        // ページナンバーを更新
+        pageNumber -= 1;
+        // 最初のページナンバーを超えたら
+        if (pageNumber < 0) {
+          pageNumber = 0; // 最小値で止める
+        }
+        updatePage(); // ページ番号にあった表示にする
+      }
+
+      // ボタンをクリックしたときの処理
+      btnNext.addEventListener("click", handleNextClick);
+      function handleNextClick(event) {
+        // ページナンバーを更新
+        pageNumber += 1;
+        // 最後のページナンバーを超えたら
+        if (pageNumber > PHOTO_NUM - 1) {
+          pageNumber = PHOTO_NUM - 1; // 最大値で止める
+        }
+
+        updatePage(); // ページ番号にあった表示にする
+      }
+
+       // ページ番号にあった配置にする
+      function updatePage() {
+        // 目標座標を計算
+        var targetX = -1 * PHOTO_WIDTH * pageNumber;
+        // トゥイーンさせる
+        createjs.Tween.get(container, {override: true})
+                .to({x: targetX}, 2000, createjs.Ease.cubicInOut);
+      }
+
+      // カルタ用のコンテナ―を作成
+      var container2 = new createjs.Container
+      stage.addChild(container2);
+
+      // カルタを作成
+      var bmp1 = new createjs.Bitmap("efuda_a_.jpg");
+      bmp1.x = 50;
+      bmp1.y = 350;
+      stage.addChild(bmp1);
+
+      var bmp2 = new createjs.Bitmap("efuda_i_.jpg");
+      bmp2.x = 220;
+      bmp2.y = 350;
+      stage.addChild(bmp2);
+
+      var bmp3 = new createjs.Bitmap("efuda_u_.jpg");
+      bmp3.x = 390;
+      bmp3.y = 350;
+      stage.addChild(bmp3);
+
+      var bmp4 = new createjs.Bitmap("efuda_e_.jpg");
+      bmp4.x = 560;
+      bmp4.y = 350;
+      stage.addChild(bmp4);
+
+      var bmp5 = new createjs.Bitmap("efuda_o_.jpg");
+      bmp5.x = 50;
+      bmp5.y = 555;
+      stage.addChild(bmp5);
+
+      var bmp6 = new createjs.Bitmap("efuda_ka_.jpg");
+      bmp6.x = 220;
+      bmp6.y = 555;
+      stage.addChild(bmp6);
+
+      var bmp7 = new createjs.Bitmap("efuda_ki_.jpg");
+      bmp7.x = 390;
+      bmp7.y = 555;
+      stage.addChild(bmp7);
+
+      var bmp8 = new createjs.Bitmap("efuda_ku_.jpg");
+      bmp8.x = 560;
+      bmp8.y = 555;
+      stage.addChild(bmp8);
+
+      var bmp9 = new createjs.Bitmap("efuda_ke_.jpg");
+      bmp9.x = 50;
+      bmp9.y = 760;
+      stage.addChild(bmp9);
+
+      var bmp10 = new createjs.Bitmap("efuda_ko_.jpg");
+      bmp10.x = 220;
+      bmp10.y = 760;
+      stage.addChild(bmp10);
+
+      // ４つの絵札をカルタ用のコンテナーに追加
+      container2.addChild(bmp1);
+      container2.addChild(bmp2);
+      container2.addChild(bmp3);
+      container2.addChild(bmp4);
+      container2.addChild(bmp5);
+      container2.addChild(bmp6);
+      container2.addChild(bmp7);
+      container2.addChild(bmp8)
+      container2.addChild(bmp9);
+      container2.addChild(bmp10);
+      
+      // マウスイベントを登録①
+
+      bmp1.addEventListener("click", function(event){  
+          if(pageNumber == 0){
+              container2.removeChild(bmp1);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp2.addEventListener("click", function(event){  
+          if(pageNumber == 1){
+              container2.removeChild(bmp2);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          };
+      });
+
+      bmp3.addEventListener("click", function(event){
+          if(pageNumber == 2){
+              container2.removeChild(bmp3);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp4.addEventListener("click", function(event){
+         if(pageNumber == 3){
+              container2.removeChild(bmp4);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          };
+      });
+
+      bmp5.addEventListener("click", function(event){
+          if(pageNumber == 4){
+              container2.removeChild(bmp5);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp6.addEventListener("click", function(event){
+          if(pageNumber == 5){
+              container2.removeChild(bmp6);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp7.addEventListener("click", function(event){
+          if(pageNumber == 6){
+              container2.removeChild(bmp7);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp8.addEventListener("click", function(event){
+          if(pageNumber == 7){
+              container2.removeChild(bmp8);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp9.addEventListener("click", function(event){
+          if(pageNumber == 8){
+              container2.removeChild(bmp9);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+
+      bmp10.addEventListener("click", function(event){
+          if(pageNumber == 9){
+              container2.removeChild(bmp10);
+              alert("せいかい！");
+          }  else{
+              alert("ざんねん");
+          }
+      });
+      
+      // マウスイベントを登録②
+      bmp1.addEventListener("mousedown", handleMouseDown);
+      bmp2.addEventListener("mousedown", handleMouseDown);
+      bmp3.addEventListener("mousedown", handleMouseDown);
+      bmp4.addEventListener("mousedown", handleMouseDown);
+      bmp5.addEventListener("mousedown", handleMouseDown);
+      bmp6.addEventListener("mousedown", handleMouseDown);
+      bmp7.addEventListener("mousedown", handleMouseDown);
+      bmp8.addEventListener("mousedown", handleMouseDown);
+      bmp9.addEventListener("mousedown", handleMouseDown);
+      bmp10.addEventListener("mousedown", handleMouseDown);
+
+      function handleMouseDown(event) {
+        // currentTarget を使うことで、どれがマウスダウンされたか判別できる
+        var piece = event.currentTarget;
+        
+        // マウスが押された場所を保存しておく
+        var mouseDownX = stage.mouseX - piece.x;
+        var mouseDownY = stage.mouseY - piece.y;
+
+        // ドラッグ関連イベントを登録
+        piece.addEventListener("pressmove", handlePressMove);
+        
+        function handlePressMove(event) {
+          updateMousePosition(); // マウスの座標に追随
+        }
+  
+        // マウスのドラッグ処理
+        function updateMousePosition() {
+          // オブジェクトの座標はマウスの座標に追随
+          piece.x = stage.mouseX - mouseDownX;
+          piece.y = stage.mouseY - mouseDownY;
+        }
+      }
+
+      // 時間経過
+      createjs.Ticker.setFPS(60);
+      createjs.Ticker.addEventListener("tick", stage);
+      createjs.Ticker.addEventListener("tick", handleTick);
+      function handleTick() {
+        stage.update(); // 画面更新
+      }
+    }
+
+    function createButton(label) {
+
+      // ボタンを用意する
+      var btn = new createjs.Container();
+
+      // ボタンの下敷き
+      var btnZabuton = new createjs.Shape();
+      btnZabuton.graphics.beginFill("black").drawRoundRect(0, 0, 45, 40, 5, 5);
+      btn.addChild(btnZabuton);
+      
+      // ボタンのラベル
+      var btnLabel = new createjs.Text(label, "24px sans-serif", "white");
+      btnLabel.textAlign = "center";
+      btnLabel.textBaseline = "middle";
+      btnLabel.x = 20;
+      btnLabel.y = 20;
+      btn.addChild(btnLabel);
+
+      // 関数の戻り値としてボタンの参照を返す
+      return btn;
+    }
+
+  </script>
+
+<body onload="init()" background="Workship.jpeg">
+    <canvas id="myCanvas" width="800" height="950"></canvas>
+    <div id="disp_count">0</div>
+    <input type="button" value="　枚数　" id="btn_count_up" />
+    <input type="button" value="リセット" id="btn_reset" />
+
+    <div id="disp_count2">0</div>
+    <input type="button" value="お手付き" id="btn_count_up2" />
+    <input type="button" value="リセット" id="btn_reset2" />
+</body>
+
+</html>
